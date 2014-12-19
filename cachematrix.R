@@ -1,23 +1,23 @@
 # Script to create a "matrix" object that can cache it inverse
 
 
- makeCacheMatrix <- function(x = matrix()) { # creates a matrix function
+ makeCacheMatrix <- function(x = matrix()) {    # creates a matrix function
 
-        m <- NULL                           # creates a NULL object 
+        m <- NULL                               # creates a NULL object in the parent environment
 
-            set <- function(y) {                # Set function to setup the
+            set <- function(y) {                # function to setup the value of the matrix
 
-                x <<- y                     # Assigns 
+                x <<- y                         # Assigns NULLed empty objects in the get function environment
                 m <<- NULL
         }
 
-      get <- function() x
+      get <- function() x			      # sets the value of the matrix	
 
-            setmatrix <- function(solve) m <<- solve
+            setmatrix <- function(solve) m <<- solve   # function to set the inverse matrix using the solve()
 
-               getmatrix <- function() m
+               getmatrix <- function() m               # function to retrieve the inverse matrix
 
-        list(set = set, get = get,
+        list(set = set, get = get,                     # List of functions
 
              setmatrix = setmatrix,
 
@@ -25,20 +25,20 @@
 }
 
 
-	cacheSolve <- function(x = matrix(), ...) {
+	cacheSolve <- function(x = matrix(), ...) {    #Function to check if the matrix is in the cache and set it if not present
 
                 m <- x$getmatrix()
 
-        if(!is.null(m)) {
+        if(!is.null(m)) {                           # check if matrix is present in cache and retrieve
 
                   message("getting cached data")
                 return(m)
         }
-             data <- x$get()
+             cachedata <- x$get()                       # retrieves the cache data
 
-                 m <- solve(data, ...)
+                 m <- solve(cachedata, ...)             
 
-        x$setmatrix(m)
+        x$setmatrix(m)						# Writes the inverse matrix into cache
 
         m
 
