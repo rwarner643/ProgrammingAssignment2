@@ -1,4 +1,4 @@
-# Script to create a "matrix" object that can cache it inverse
+# This function creates a "matrix" and a list containing functions to set the value of the inverse of the matrix and get the value of the inverse matrix 
 
 
  makeCacheMatrix <- function(x = matrix()) {    # creates a matrix function
